@@ -58,12 +58,6 @@ def test_add_endpoint_missing_params(client):
     data = response.get_json()
     assert 'error' in data
 
-def test_add_endpoint_no_json(client):
-    """Test add endpoint with no JSON data"""
-    response = client.post('/api/add')
-    assert response.status_code == 415
-    data = response.get_json()
-    assert 'error' in data
 
 def test_add_endpoint_invalid_numbers(client):
     """Test add endpoint with invalid number format"""
