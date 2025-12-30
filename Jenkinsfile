@@ -53,9 +53,9 @@ pipeline {
         stage('Setup Python') {
             steps {
                 echo 'Setting up Python environment...'
-                sh '''
-                    python3 --version || python --version
-                    pip3 --version || pip --version
+                bat '''
+                    python --version
+                    pip --version
                 '''
             }
         }
@@ -63,8 +63,8 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 echo 'Installing Python dependencies...'
-                sh '''
-                    pip3 install -r requirements.txt || pip install -r requirements.txt
+                bat '''
+                    pip install -r requirements.txt
                 '''
             }
         }
@@ -75,10 +75,10 @@ pipeline {
                 echo "Environment: ${NODE_ENV}"
                 echo "Build ID: ${BUILD_ID}"
                 echo "Building version: ${params.APP_VERSION}"
-                sh '''
-                    echo "Flask app structure verified"
-                    ls -la
-                    python3 -m py_compile app.py || python -m py_compile app.py
+                bat '''
+                    echo Flask app structure verified
+                    dir
+                    python -m py_compile app.py
                 '''
             }
         }
@@ -90,8 +90,8 @@ pipeline {
             steps {
                 echo 'Running tests...'
                 echo "Testing with Build Number: ${BUILD_NUMBER}"
-                sh '''
-                    pytest test_app.py -v --tb=short || python3 -m pytest test_app.py -v --tb=short || python -m pytest test_app.py -v --tb=short
+                bat '''
+                    pytest test_app.py -v --tb=short || python -m pytest test_app.py -v --tb=short
                 '''
             }
             post {
@@ -126,4 +126,3 @@ pipeline {
         }
     }
 }
-
