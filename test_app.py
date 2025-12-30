@@ -61,7 +61,7 @@ def test_add_endpoint_missing_params(client):
 def test_add_endpoint_no_json(client):
     """Test add endpoint with no JSON data"""
     response = client.post('/api/add')
-    assert response.status_code == 400
+    assert response.status_code == 415
     data = response.get_json()
     assert 'error' in data
 
